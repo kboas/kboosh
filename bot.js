@@ -17,19 +17,44 @@ client.user.setGame(argresult, "http://twitch.tv/y04zgamer");
 
  });
 
-client.on('message', msg => {
+client.on('message', message => {
+    if (!message.content.startsWith(prefix)) return;
+  if(!message.channel.guild) return message.reply('** This command only for SeArvers **')
+    let command = message.content.split(" ")[0];
+    command = command.slice(prefix.length);
+    if (command === "kill"){
 
-    if (msg.content == '$join') {
-        if (msg.member.voiceChannel) {
-
-     if (msg.member.voiceChannel.joinable) {
-         msg.member.voiceChannel.join().then(msg.react('white_check_mark'));
-     }
+   var sabotage = message.mentions.users.first();
+   if(sabotage == message.author)return message.reply(`**الانتحار ما زين و الله**`);
+    if(sabotage === client.user) return message.reply(`** تبي تقتلني ؟ **`);
+  if (sabotage < 1) {
+    message.delete();
+    return message.channel.sendMessage('ضع شيئا للقتل، مثل ذكر مستخدم، أو استخدام رمز تعبيري');
+  }
+  if (!sabotage) return message.channel.send(`Please Mention A Member to Kill :warning:`)
+  message.channel.send("▄︻̷̿┻̿═━一 ${sabotage")
+  .then(msg =>{
+  msg.edit(`▄︻̷̿┻̿═━一 ${sabotage} :three:`);
+  setTimeout(function() {
+    msg.edit(`▄︻̷̿┻̿═━一 ${sabotage} :two:`);
+  }, 1000);
+  setTimeout(function() {
+    msg.edit(`▄︻̷̿┻̿═━一 ${sabotage} :one:`);
+  }, 2000);
+  setTimeout(function() {
+    msg.edit(`▄︻̷̿┻̿═━一 :boom:`);
+  }, 3000);
+  setTimeout(function() {
+    msg.edit(`▄︻̷̿┻̿═━一 :fire:`);///Mal Team
+  }, 4000);
+  setTimeout(function() {
+    msg.edit(`▄︻̷̿┻̿═━一 :skull:`);
+  }, 5000);
+  msg.delete(7876)
+  message.delete()
+  })
+  message.channel.send("**تم اخفاء الجريمة بنجاح 🕳 **").then(msg => msg.delete(10000));
     }
-}
-})
-client.on('ready', () => {
-    client.channels.get("518513612139134986").join(); 
-    });
+});
 
 client.login(process.env.BOT_TOKEN);
